@@ -1,4 +1,5 @@
-#Transferring custom image from GCE to Azure
+Transferring custom image from GCE to Azure
+
 When talking to customers about trying out Azure, one sticking point that we hear from customers often is that rebuilding
 their workflow (again) in a different cloud is painful. One of the pain points is regarding their VMs - it takes alot of time
 and energy to build a new image so even getting started with their apps, scripts, etc is just... hard.... 
