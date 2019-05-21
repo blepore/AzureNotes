@@ -18,7 +18,9 @@ https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-ubun
 A GCE image, of course, also comes loaded with a bunch of GCE-related goodies that should proably be removed. 
 
 SSH-Guard caused me some trouble so I removed that:
-```sudo apt-get remove --purge sshguard```
+```
+sudo apt-get remove --purge sshguard
+```
 
 Removing these files helped to clean up and quite-down the logs:
 ```cd /
