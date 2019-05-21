@@ -98,7 +98,9 @@ https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/create
 $ gcloud compute images create ubuntu-demo-image --source-disk=ubuntu-demo --source-disk-zone=us-east4-c
 ```
 
-Make the object publicly accessible:
+I needed an easy way to get to the image into Azure so I made it publicly accessible by putting it into a public bucket and exporting the image into that bucket.
+
+Make bucket publicly accessible
 https://cloud.google.com/storage/docs/access-control/making-data-public
 ```
 $ gsutil iam ch allUsers:objectViewer gs://mybucket-public/
