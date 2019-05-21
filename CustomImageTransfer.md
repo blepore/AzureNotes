@@ -51,8 +51,8 @@ rm usr/bin/google_set_multiqueue
 rm usr/share/doc/gce-compute-image-packages/TODO.Debian
 rm usr/share/doc/gce-compute-image-packages/changelog.Debian.gz
 rm usr/share/doc/gce-compute-image-packages/copyright
-rm usr/share/lintian/overrides/gce-compute-image-packages```
-
+rm usr/share/lintian/overrides/gce-compute-image-packages
+```
 
 
 You will want to disable cloudinit and let waagent do its thing. I disabled the firewall to simplify the installation:
