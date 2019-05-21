@@ -18,10 +18,10 @@ https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-ubun
 A GCE image, of course, also comes loaded with a bunch of GCE-related goodies that should proably be removed. 
 
 SSH-Guard caused me some trouble so I removed that:
-sudo apt-get remove --purge sshguard
+```sudo apt-get remove --purge sshguard```
 
 Removing these files helped to clean up and quite-down the logs:
-cd /
+```cd /
 rm etc/apt/apt.conf.d/01autoremove-gce 
 rm etc/apt/apt.conf.d/99-gce-ipv4-only 
 rm etc/cloud/cloud.cfg.d/91-gce.cfg
@@ -51,12 +51,12 @@ rm usr/bin/google_set_multiqueue
 rm usr/share/doc/gce-compute-image-packages/TODO.Debian
 rm usr/share/doc/gce-compute-image-packages/changelog.Debian.gz
 rm usr/share/doc/gce-compute-image-packages/copyright
-rm usr/share/lintian/overrides/gce-compute-image-packages
+rm usr/share/lintian/overrides/gce-compute-image-packages```
 
 
 
 You will want to disable cloudinit and let waagent do its thing. I disabled the firewall to simplify the installation:
-{{{
+```
 vi /etc/waagent
 
 ...
@@ -71,5 +71,5 @@ Provisioning.UseCloudInit=n
 
 # Add firewall rules to protect access to Azure host node services
 OS.EnableFirewall=n
-}}}
+```
 
