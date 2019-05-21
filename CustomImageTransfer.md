@@ -20,7 +20,7 @@ output here?
 
 A GCE image, of course, also comes loaded with a bunch of GCE-related goodies that should proably be removed. 
 
-SSH-Guard caused me some trouble so I removed that:
+SSHGuard caused me some trouble so I removed that:
 ```
 sudo apt-get remove --purge sshguard
 ```
