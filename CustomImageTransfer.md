@@ -57,7 +57,7 @@ rm usr/share/lintian/overrides/gce-compute-image-packages
 ```
 
 
-You will want to disable cloudinit and let waagent do its thing from the waagent config file:
+You will want to disable cloudinit and let waagent do the provisioning from the waagent config file:
 ```
 vi /etc/waagent
 ```
@@ -75,3 +75,37 @@ Provisioning.UseCloudInit=n
 OS.EnableFirewall=n
 ```
 
+Stop the VM
+
+#Capture the image
+
+Login to the GCE console:
+```
+$ gcloud auth login
+```
+
+List disks in project:
+```
+$ gcloud compute disks list
+NAME                LOCATION    LOCATION_SCOPE  SIZE_GB  TYPE         STATUS
+testimage-ubuntu-2  us-east4-c  zone            10       pd-standard  READY
+ubuntu-demo         us-east4-c  zone            10       pd-standard  READY
+```
+
+Create image in GCE
+https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/create
+```
+$ gcloud compute images create ubuntu-demo-image --source-disk=ubuntu-demo --source-disk-zone=us-east4-c
+```
+
+Make the object publicly accessible:
+https://cloud.google.com/storage/docs/access-control/making-data-public
+```
+$ gsutil iam ch allUsers:objectViewer gs://mybucket-public/
+```
+
+Export image in GCE
+https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/export
+```
+$ gcloud compute images export --destination-uri=gs://mybucket-public/test-image_fromgce.vhdx --image=test-image --async --export-format=vhdx
+```
