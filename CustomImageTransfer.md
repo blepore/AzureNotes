@@ -77,7 +77,7 @@ OS.EnableFirewall=n
 
 Stop the VM
 
-#Capture the image
+# Capture the image
 
 Login to the GCE console:
 ```
