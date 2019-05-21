@@ -12,8 +12,11 @@ It's pretty straight-forward and only takes about an hour once you know what to 
 
 # Prepare image
 
-This page gives you just about all you need to prepare the image for Azure. Follow these steps 
+This page gives you just about all you need to prepare the image for Azure. Follow these steps: 
 https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-ubuntu
+```
+output here?
+```
 
 A GCE image, of course, also comes loaded with a bunch of GCE-related goodies that should proably be removed. 
 
