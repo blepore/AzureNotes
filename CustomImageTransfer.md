@@ -57,12 +57,12 @@ rm usr/share/lintian/overrides/gce-compute-image-packages
 ```
 
 
-You will want to disable cloudinit and let waagent do its thing. I disabled the firewall to simplify the installation:
+You will want to disable cloudinit and let waagent do its thing from the waagent config file:
 ```
 vi /etc/waagent
-
-...
-
+```
+ I disabled the firewall to simplify the installation:
+```
 # Enable instance creation
 Provisioning.Enabled=y
 ...
