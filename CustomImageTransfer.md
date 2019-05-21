@@ -109,5 +109,5 @@ $ gsutil iam ch allUsers:objectViewer gs://mybucket-public/
 Export image in GCE
 https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/export
 ```
-$ gcloud compute images export --destination-uri=gs://mybucket-public/test-image_fromgce.vhdx --image=test-image --async --export-format=vhdx
+$ gcloud compute images export --destination-uri=gs://mybucket-public/ubuntu-demo-image.vhdx --image=ubuntu-demo-image --async --export-format=vhdx
 ```
