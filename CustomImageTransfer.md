@@ -111,7 +111,7 @@ You will want to disable cloudinit and let waagent do the provisioning from the 
 ```
 vi /etc/waagent
 ```
- I disabled the firewall to simplify the installation:
+Make these changes (I disabled the firewall to simplify the installation):
 ```
 # Enable instance creation
 Provisioning.Enabled=y
