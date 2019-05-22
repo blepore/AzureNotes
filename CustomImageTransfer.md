@@ -213,11 +213,11 @@ New-AzStorageAccount `
 >>     -ResourceGroupName keep -Name $storageaccountname -Location $location -SkuName "Standard_LRS" `
 >>     -Kind “Storage"
 ```
-Make it public
+Make it public:
 ```
 New-AzStorageContext -StorageAccountName $storageaccountname -Anonymous -Protocol “http"
 ```
-Create a container named 'public' to drop the image into
+Create a container named 'public' to drop the image into:
 ```
 $containerName = "public"
 new-AzStoragecontainer -Name $containerName -Permission blob
@@ -229,7 +229,7 @@ Uploading the VHD into the new container can be done in a number of different wa
 Install azcopy using the instructions here:
 https://aka.ms/downloadazcopy
 
-Now copy the image to Azure
+Now copy the image to Azure:
 ```
 cd 'C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\'
 .\AzCopy.exe /Source:C:\Path\To\Image\ubuntu-demo-image.vhd /Dest:https://myvmstore.blob.core.windows.net/public/ubuntu-demo-image.vhd /DestKey:/<key here> /BlobType:page
