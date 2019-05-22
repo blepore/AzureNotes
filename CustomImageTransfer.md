@@ -4,11 +4,11 @@ When talking to customers about trying out Azure, one sticking point that we oft
 their workflow (again) in a different cloud is painful. One of the pain points is regarding their VMs - it takes alot of time
 and energy to build a new image so even getting started with their apps, scripts, etc is just... hard.... 
 
-There doesn't seem to be an end-to-end guide on how to move a custom image from GCE into Azure if I were a Azure newbie.
+There doesn't appear to be an end-to-end guide on how to move a custom image from GCE into Azure for Azure newbies.
 In an effort to make the transition from Google GCE to Microsoft Azure easier, I thought it made some sense to test how one 
 might do that. 
 
-It's pretty straight-forward and only takes about an hour once you know what to do. Here's how I did it:
+It's pretty straight-forward and only takes about an hour once you know what to do (and most of that is wait time on the downloading/converting/uploading steps). Here's how I did it:
 
 # Prepare image
 
