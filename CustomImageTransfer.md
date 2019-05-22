@@ -114,3 +114,33 @@ https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/export
 ```
 $ gcloud compute images export --destination-uri=gs://mybucket-public/ubuntu-demo-image.vhdx --image=ubuntu-demo-image --async --export-format=vhdx
 ```
+
+# Convert VHDX to VHD
+
+Azure supports VHD images, not VHDX. Fortunately, there is a simple PowerShell utility that can convert the image to VHD. If you've been using Hyper-V in your environment, and specifically using Windows, you may already have the utility installed. If you're a Linux-only shop or don't run your own Hyper-V environment, then you'll need to install the tools on a Windows server. 
+
+Here is how I did it:
+
+Log into your Windows Server or spin up a new one in Azure. 
+
+Open PowerShell and install Hyper-V PowerShell Tools:
+https://redmondmag.com/articles/2018/11/16/installing-hyperv-module-for-powershell.aspx
+https://sid-500.com/2018/01/30/how-to-install-hyper-v-and-create-your-first-vm-with-powershell-hyper-host-switch-hyper-v-guest/
+```
+Enable-WindowsOptionalFeature -Online -FeatureName  Microsoft-Hyper-V
+Reboot
+Install-WindowsFeature Hyper-V -IncludeManagementTools
+Get-WindowsFeature *Hyper*
+Display Name                                            Name                       Install State
+------------                                            ----                       -------------
+[X] Hyper-V                                             Hyper-V                        Installed
+        [X] Hyper-V Management Tools                    RSAT-Hyper-V-Tools             Installed
+            [X] Hyper-V GUI Management Tools            Hyper-V-Tools                  Installed
+            [X] Hyper-V Module for Windows PowerShell   Hyper-V-PowerShell             Installed
+```
+
+Install Azure PowerShell module
+https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-1.6.0
+```
+Install-Module -Name Az -AllowClobber
+```
