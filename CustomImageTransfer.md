@@ -8,7 +8,9 @@ There doesn't appear to be an end-to-end guide on how to move a custom image fro
 In an effort to make the transition from Google GCE to Microsoft Azure easier, I thought it made some sense to test how one 
 might do that. 
 
-It's pretty straight-forward and only takes about an hour once you know what to do (and most of that is wait time on the downloading/converting/uploading steps). Here's how I did it:
+It's pretty straight-forward and only takes about an hour once you know what to do (and most of that is wait time on the downloading/converting/uploading steps). You'll notice that this is Debian/Ubuntu specific so, if you're using Centos, just substitute "yum" for "apt-get".
+
+Here's how I did it:
 
 # Prepare image
 
