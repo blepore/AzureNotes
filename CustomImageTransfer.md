@@ -192,7 +192,7 @@ Download the image from the GCE public bucket.
 Convert VHDX to VHD using PowerShell (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image#convert-disk-by-using-powershell)
 
 ```
-PS C:\> Convert-VHD -Path c:\Users\BillDing\Downloads\ubuntu-demo-image.vhdx -DestinationPath c:\Users\BillDing\Downloads\ubuntu-demo-image.vhd -VHDType Fixed
+Convert-VHD -Path c:\Path\To\Image\ubuntu-demo-image.vhdx -DestinationPath c:\Path\To\Image\ubuntu-demo-image.vhd -VHDType Fixed
 ```
 # Upload to Azure
 Let's get the VHD uploaded to Azure. 
@@ -231,8 +231,8 @@ https://aka.ms/downloadazcopy
 
 Now copy the image to Azure
 ```
- cd 'C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\'
- .\AzCopy.exe /Source:C:\Users\BillDing\Downloads\ubuntu-demo-image.vhd /Dest:https://myvmstore.blob.core.windows.net/public/ubuntu-demo-image.vhd /DestKey:/<key here> /BlobType:page
+cd 'C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\'
+.\AzCopy.exe /Source:C:\Path\To\Image\ubuntu-demo-image.vhd /Dest:https://myvmstore.blob.core.windows.net/public/ubuntu-demo-image.vhd /DestKey:/<key here> /BlobType:page
 ```
 
 # Create VM from VHD
