@@ -149,7 +149,7 @@ Create image in GCE (https://cloud.google.com/sdk/gcloud/reference/beta/compute/
 $ gcloud compute images create ubuntu-demo-image --source-disk=ubuntu-demo --source-disk-zone=us-east4-c
 ```
 
-I needed an easy way to get to the image into Azure so I made it publicly accessible by putting it into a public bucket and exporting the image into that bucket.
+I needed an easy way to get the image into Azure so I made it publicly accessible by putting it into a public bucket and exporting the image into that bucket.
 
 Make bucket publicly accessible (https://cloud.google.com/storage/docs/access-control/making-data-public)
 ```
