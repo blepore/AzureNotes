@@ -95,25 +95,19 @@ testimage-ubuntu-2  us-east4-c  zone            10       pd-standard  READY
 ubuntu-demo         us-east4-c  zone            10       pd-standard  READY
 ```
 
-Create image in GCE
-
-https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/create
+Create image in GCE (https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/create)
 ```
 $ gcloud compute images create ubuntu-demo-image --source-disk=ubuntu-demo --source-disk-zone=us-east4-c
 ```
 
 I needed an easy way to get to the image into Azure so I made it publicly accessible by putting it into a public bucket and exporting the image into that bucket.
 
-Make bucket publicly accessible
-
-https://cloud.google.com/storage/docs/access-control/making-data-public
+Make bucket publicly accessible (https://cloud.google.com/storage/docs/access-control/making-data-public)
 ```
 $ gsutil iam ch allUsers:objectViewer gs://mybucket-public/
 ```
 
-Export image in GCE
-
-https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/export
+Export image in GCE (https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/export)
 ```
 $ gcloud compute images export --destination-uri=gs://mybucket-public/ubuntu-demo-image.vhdx --image=ubuntu-demo-image --async --export-format=vhdx
 ```
@@ -126,11 +120,8 @@ Here is how I did it:
 
 Log into your Windows Server or spin up a new one in Azure. 
 
-Open PowerShell and install Hyper-V PowerShell Tools
+Open PowerShell and install Hyper-V PowerShell Tools (https://redmondmag.com/articles/2018/11/16/installing-hyperv-module-for-powershell.aspx AND https://sid-500.com/2018/01/30/how-to-install-hyper-v-and-create-your-first-vm-with-powershell-hyper-host-switch-hyper-v-guest/)
 
-https://redmondmag.com/articles/2018/11/16/installing-hyperv-module-for-powershell.aspx
-
-https://sid-500.com/2018/01/30/how-to-install-hyper-v-and-create-your-first-vm-with-powershell-hyper-host-switch-hyper-v-guest/
 ```
 Enable-WindowsOptionalFeature -Online -FeatureName  Microsoft-Hyper-V
 Reboot
@@ -144,18 +135,15 @@ Display Name                                            Name                    
             [X] Hyper-V Module for Windows PowerShell   Hyper-V-PowerShell             Installed
 ```
 
-Install Azure PowerShell module
-
-https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-1.6.0
+Install Azure PowerShell module (https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-1.6.0)
 ```
 Install-Module -Name Az -AllowClobber
 ```
 
 Download the image from the GCE public bucket.
 
-Convert VHDX to VHD using PowerShell
+Convert VHDX to VHD using PowerShell (https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image#convert-disk-by-using-powershell)
 
-https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image#convert-disk-by-using-powershell
 ```
 PS C:\> Convert-VHD -Path c:\Users\BillDing\Downloads\ubuntu-demo-image.vhdx -DestinationPath c:\Users\BillDing\Downloads\ubuntu-demo-image.vhd -VHDType Fixed
 ```
@@ -189,7 +177,7 @@ new-AzStoragecontainer -Name $containerName -Permission blob
 ```
 
 
-Uploading the VHD into the new container can be done in a number of different ways. The most efficient is using the Azure AzCopy tool. https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy?toc=%2fazure%2fstorage%2fblobs%2ftoc.json
+Uploading the VHD into the new container can be done in a number of different ways. The most efficient is using the Azure AzCopy tool: https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy?toc=%2fazure%2fstorage%2fblobs%2ftoc.json
 
 Install azcopy using the instructions here:
 https://aka.ms/downloadazcopy
