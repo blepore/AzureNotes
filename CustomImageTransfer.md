@@ -12,9 +12,10 @@ It's pretty straight-forward and only takes about an hour once you know what to 
 
 # Prepare image
 
-This page gives you just about all you need to prepare the image for Azure. Important - you should follow the steps on this page, the steps below are what I did at the time but this page will be updated with any new changes/requirements: 
+This page gives you just about all you need to prepare the image for Azure. Important - you should follow the steps on this page, the immediate steps below are what I did at the time but this page will be updated with any new changes/requirements: 
 https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-ubuntu
 
+---
 ```
 # sudo apt-get update
 # sudo apt-get install linux-generic-hwe-16.04 linux-cloud-tools-generic-hwe-16.04
@@ -60,6 +61,7 @@ Deprovision the VM:
 # export HISTSIZE=0
 # logout
  ```
+---
 
 A GCE image, of course, also comes loaded with a bunch of GCE-related goodies that should proably be removed. 
 
