@@ -71,7 +71,7 @@ SSHGuard caused me some trouble so I removed that:
 sudo apt-get remove --purge sshguard
 ```
 
-Removing these files helped to clean up and quite-down the logs:
+Removing these files helped to clean up and quiet-down the logs:
 ```cd /
 rm etc/apt/apt.conf.d/01autoremove-gce 
 rm etc/apt/apt.conf.d/99-gce-ipv4-only 
