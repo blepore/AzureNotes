@@ -203,7 +203,7 @@ If you're new to Azure, you may want to download the AZ CLI (https://docs.micros
 
 For this exercise, I already had a Resource Group created (named 'keep'). Documentation, examples, tutorials on how to do that can be found here: https://docs.microsoft.com/en-us/cli/azure/group?view=azure-cli-latest#az-group-create
 
-Create ADLS storage account (blob does not support page blobs)
+Create ADLS storage account:
 ```
 Connect-AzAccount
 $location = ‘eastus'
