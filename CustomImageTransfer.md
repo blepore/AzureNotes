@@ -199,7 +199,7 @@ Convert-VHD -Path c:\Path\To\Image\ubuntu-demo-image.vhdx -DestinationPath c:\Pa
 # Upload to Azure
 Let's get the VHD uploaded to Azure. 
 
-Creating a publically-accessible Blob storage container seems to be the most simplistic approach.
+Creating a publicly-accessible Blob storage container seems to be the most simplistic approach.
 
 If you're new to Azure, you may want to download the AZ CLI (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). 
 
