@@ -145,43 +145,53 @@ https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-1.6.0
 Install-Module -Name Az -AllowClobber
 ```
 
-Download the image from the GCE public bucket
+Download the image from the GCE public bucket.
 
 Convert VHDX to VHD using PowerShell
 https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image#convert-disk-by-using-powershell
 ```
 PS C:\> Convert-VHD -Path c:\Users\BillDing\Downloads\ubuntu-demo-image.vhdx -DestinationPath c:\Users\BillDing\Downloads\ubuntu-demo-image.vhd -VHDType Fixed
 ```
+# Upload to Azure
+Let's get the VHD uploaded to Azure. 
+
+Creating a publically-accessible Blob storage container seems to be the most simplistic approach.
+
+If you're new to Azure, you may want to download the AZ CLI (https://docs.microsoft.com/en-us/cli/azure/install-azure-cli?view=azure-cli-latest). 
+
+For this exercise, I already had a Resource Group created (named 'keep'). Documentation, examples, tutorials on how to do that can be found here: https://docs.microsoft.com/en-us/cli/azure/group?view=azure-cli-latest#az-group-create
 
 Create ADLS storage account (blob does not support page blobs)
+```
 Connect-AzAccount
 $location = ‘eastus'
-$storageaccountname = ‘brleporevmstore'
+$storageaccountname = ‘myvmstore'
 
 New-AzStorageAccount `
 >>     -ResourceGroupName keep -Name $storageaccountname -Location $location -SkuName "Standard_LRS" `
 >>     -Kind “Storage"
-
+```
+Make it public
+```
 New-AzStorageContext -StorageAccountName $storageaccountname -Anonymous -Protocol “http"
-
+```
+Create a container named 'public' to drop the image into
+```
 $containerName = "public"
 new-AzStoragecontainer -Name $containerName -Permission blob
-
-$destinationResourceGroup = ‘testnewimage'
-New-AzResourceGroup -Name $destinationResourceGroup -Location $location
+```
 
 
 https://brleporevmstore.blob.core.windows.net/public
 
 
+Uploading the VHD into the new container can be done in a number of different ways. The most efficient is using the Azure AzCopy tool. https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy?toc=%2fazure%2fstorage%2fblobs%2ftoc.json
 
-
-Install azcopy (if necessary) and copy data to azure
-https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy?toc=%2fazure%2fstorage%2fblobs%2ftoc.json
+Install azcopy using the instructions here:
 https://aka.ms/downloadazcopy
 
-
+Now copy the image to Azure
+```
  cd 'C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\'
- .\AzCopy.exe /Source:C:\Users\brlepore\Downloads\ubuntu-demo-image.vhd /Dest:https://brleporevmstore.blob.core.windows.net/public/ubuntu-demo-image.vhd /DestKey:/4EATECI4LhH+LpvKY6EtVNlCbrMzRkyvr31XPB+y7kRIc6mUmMZxNtCqElLw7dKYpZd5Rj6L/msMV0aDlzMFA== /BlobType:page
-
-
+ .\AzCopy.exe /Source:C:\Users\BillDing\Downloads\ubuntu-demo-image.vhd /Dest:https://myvmstore.blob.core.windows.net/public/ubuntu-demo-image.vhd /DestKey:/<key here> /BlobType:page
+```
