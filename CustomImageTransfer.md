@@ -66,7 +66,7 @@ Deprovision the VM:
  ```
 ---
 
-A GCE image, of course, also comes loaded with a bunch of GCE-related goodies that should proably be removed. 
+A GCE image, of course, also comes loaded with a bunch of GCE-related goodies that should probably be removed. 
 
 SSHGuard caused me some trouble so I removed that:
 ```
