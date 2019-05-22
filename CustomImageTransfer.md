@@ -123,7 +123,7 @@ Here is how I did it:
 
 Log into your Windows Server or spin up a new one in Azure. 
 
-Open PowerShell and install Hyper-V PowerShell Tools:
+Open PowerShell and install Hyper-V PowerShell Tools
 https://redmondmag.com/articles/2018/11/16/installing-hyperv-module-for-powershell.aspx
 https://sid-500.com/2018/01/30/how-to-install-hyper-v-and-create-your-first-vm-with-powershell-hyper-host-switch-hyper-v-guest/
 ```
@@ -144,3 +144,44 @@ https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-1.6.0
 ```
 Install-Module -Name Az -AllowClobber
 ```
+
+Download the image from the GCE public bucket
+
+Convert VHDX to VHD using PowerShell
+https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image#convert-disk-by-using-powershell
+```
+PS C:\> Convert-VHD -Path c:\Users\BillDing\Downloads\ubuntu-demo-image.vhdx -DestinationPath c:\Users\BillDing\Downloads\ubuntu-demo-image.vhd -VHDType Fixed
+```
+
+Create ADLS storage account (blob does not support page blobs)
+Connect-AzAccount
+$location = ‘eastus'
+$storageaccountname = ‘brleporevmstore'
+
+New-AzStorageAccount `
+>>     -ResourceGroupName keep -Name $storageaccountname -Location $location -SkuName "Standard_LRS" `
+>>     -Kind “Storage"
+
+New-AzStorageContext -StorageAccountName $storageaccountname -Anonymous -Protocol “http"
+
+$containerName = "public"
+new-AzStoragecontainer -Name $containerName -Permission blob
+
+$destinationResourceGroup = ‘testnewimage'
+New-AzResourceGroup -Name $destinationResourceGroup -Location $location
+
+
+https://brleporevmstore.blob.core.windows.net/public
+
+
+
+
+Install azcopy (if necessary) and copy data to azure
+https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy?toc=%2fazure%2fstorage%2fblobs%2ftoc.json
+https://aka.ms/downloadazcopy
+
+
+ cd 'C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\'
+ .\AzCopy.exe /Source:C:\Users\brlepore\Downloads\ubuntu-demo-image.vhd /Dest:https://brleporevmstore.blob.core.windows.net/public/ubuntu-demo-image.vhd /DestKey:/4EATECI4LhH+LpvKY6EtVNlCbrMzRkyvr31XPB+y7kRIc6mUmMZxNtCqElLw7dKYpZd5Rj6L/msMV0aDlzMFA== /BlobType:page
+
+
