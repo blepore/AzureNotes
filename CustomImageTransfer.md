@@ -72,7 +72,8 @@ sudo apt-get remove --purge sshguard
 ```
 
 Removing these files helped to clean up and quiet-down the logs:
-```cd /
+```
+cd /
 rm etc/apt/apt.conf.d/01autoremove-gce 
 rm etc/apt/apt.conf.d/99-gce-ipv4-only 
 rm etc/cloud/cloud.cfg.d/91-gce.cfg
