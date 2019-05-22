@@ -96,6 +96,7 @@ ubuntu-demo         us-east4-c  zone            10       pd-standard  READY
 ```
 
 Create image in GCE
+
 https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/create
 ```
 $ gcloud compute images create ubuntu-demo-image --source-disk=ubuntu-demo --source-disk-zone=us-east4-c
@@ -104,12 +105,14 @@ $ gcloud compute images create ubuntu-demo-image --source-disk=ubuntu-demo --sou
 I needed an easy way to get to the image into Azure so I made it publicly accessible by putting it into a public bucket and exporting the image into that bucket.
 
 Make bucket publicly accessible
+
 https://cloud.google.com/storage/docs/access-control/making-data-public
 ```
 $ gsutil iam ch allUsers:objectViewer gs://mybucket-public/
 ```
 
 Export image in GCE
+
 https://cloud.google.com/sdk/gcloud/reference/beta/compute/images/export
 ```
 $ gcloud compute images export --destination-uri=gs://mybucket-public/ubuntu-demo-image.vhdx --image=ubuntu-demo-image --async --export-format=vhdx
@@ -124,7 +127,9 @@ Here is how I did it:
 Log into your Windows Server or spin up a new one in Azure. 
 
 Open PowerShell and install Hyper-V PowerShell Tools
+
 https://redmondmag.com/articles/2018/11/16/installing-hyperv-module-for-powershell.aspx
+
 https://sid-500.com/2018/01/30/how-to-install-hyper-v-and-create-your-first-vm-with-powershell-hyper-host-switch-hyper-v-guest/
 ```
 Enable-WindowsOptionalFeature -Online -FeatureName  Microsoft-Hyper-V
@@ -140,6 +145,7 @@ Display Name                                            Name                    
 ```
 
 Install Azure PowerShell module
+
 https://docs.microsoft.com/en-us/powershell/azure/install-az-ps?view=azps-1.6.0
 ```
 Install-Module -Name Az -AllowClobber
@@ -148,6 +154,7 @@ Install-Module -Name Az -AllowClobber
 Download the image from the GCE public bucket.
 
 Convert VHDX to VHD using PowerShell
+
 https://docs.microsoft.com/en-us/azure/virtual-machines/windows/prepare-for-upload-vhd-image#convert-disk-by-using-powershell
 ```
 PS C:\> Convert-VHD -Path c:\Users\BillDing\Downloads\ubuntu-demo-image.vhdx -DestinationPath c:\Users\BillDing\Downloads\ubuntu-demo-image.vhd -VHDType Fixed
@@ -182,9 +189,6 @@ new-AzStoragecontainer -Name $containerName -Permission blob
 ```
 
 
-https://brleporevmstore.blob.core.windows.net/public
-
-
 Uploading the VHD into the new container can be done in a number of different ways. The most efficient is using the Azure AzCopy tool. https://docs.microsoft.com/en-us/azure/storage/common/storage-use-azcopy?toc=%2fazure%2fstorage%2fblobs%2ftoc.json
 
 Install azcopy using the instructions here:
@@ -195,3 +199,13 @@ Now copy the image to Azure
  cd 'C:\Program Files (x86)\Microsoft SDKs\Azure\AzCopy\'
  .\AzCopy.exe /Source:C:\Users\BillDing\Downloads\ubuntu-demo-image.vhd /Dest:https://myvmstore.blob.core.windows.net/public/ubuntu-demo-image.vhd /DestKey:/<key here> /BlobType:page
 ```
+
+# Create VM from VHD
+Once the image is in Azure, the process to create the VM is straight-forward. 
+
+Essentially, you will need to:
+1. Create an OS Disk from the image
+2. Create the VM using the OS Disk
+
+More information can be found here:
+https://docs.microsoft.com/en-us/azure/virtual-machines/windows/create-vm-specialized-portal
