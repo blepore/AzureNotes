@@ -15,8 +15,50 @@ It's pretty straight-forward and only takes about an hour once you know what to 
 This page gives you just about all you need to prepare the image for Azure. Follow these steps: 
 https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-upload-ubuntu
 ```
-output here?
+# sudo apt-get update
+# sudo apt-get install linux-generic-hwe-16.04 linux-cloud-tools-generic-hwe-16.04
+# sudo apt-get dist-upgrade
+# sudo reboot
 ```
+
+Modify Grub file: 
+```
+vi /etc/default/grub
+```
+Edit the following:
+```
+GRUB_CMDLINE_LINUX_DEFAULT="console=tty1 console=ttyS0,115200n8 earlyprintk=ttyS0,115200 rootdelay=300"
+```
+
+Update Grub:
+```
+sudo update-grub
+```
+
+Install Azure Linux Agent:
+```
+# sudo apt-get update
+# sudo apt-get install walinuxagent
+```
+
+Create Linux Agent Azure config file
+```
+/etc/cloud/cloud.cfg.d/90-azure.cfg
+```
+
+Contents should look like this:
+```
+datasource:
+   Azure:
+     agent_command: [service, walinuxagent, start]
+```
+
+Deprovision the VM:
+```
+# sudo waagent -force -deprovision
+# export HISTSIZE=0
+# logout
+ ```
 
 A GCE image, of course, also comes loaded with a bunch of GCE-related goodies that should proably be removed. 
 
