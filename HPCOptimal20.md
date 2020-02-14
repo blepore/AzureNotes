@@ -17,8 +17,8 @@ article published in MS Tech Community.
 # CycleCloud Login
 ```
 URL: https://cycleserverd42c4f.southcentralus.cloudapp.azure.com
-Username: demo
-Password: HPCOptimal20
+Username: hpcadmin
+Password: HPCOptim@l20
 ```
 
 # Create HPC Cluster Template
@@ -39,7 +39,7 @@ Clusters -> choose your newly-created cluster -> click ‘Start’
 # SSH to master & kick off job
 Click ‘master’. In Details pane, choose ‘Connect’ to see ssh/IP address of master node. Copy/Paste to terminal to log in.
 ```
-User: demo
+User: hpcadmin
 Password: HPCOptim@l20
 
 Run: qsub -l select=2:ncpus=16:mpiprocs=16,place=scatter:excl $HOME/apps/opm/flow_norne.sh
