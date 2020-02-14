@@ -55,5 +55,6 @@ Launch ResInsight from the Y: drive
   Y:\resinsight\ResInsight-2019.04.0_oct-4.0.0_souring_win64\ResInsight
   ```
 From ResInsight, click import eclipse case. The result file is located on the Z: drive
- ``` Z:\opm-data\norne\out_parallel\NORNE_ATW2013.EGRID
+``` 
+ Z:\opm-data\norne\out_parallel\NORNE_ATW2013.EGRID
 ```
