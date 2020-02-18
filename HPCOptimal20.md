@@ -10,6 +10,8 @@ Read more in the “Reservoir Simulation on Azure”
 (https://techcommunity.microsoft.com/t5/azure-compute/reservoir-simulation-on-azure-hpc-for-oil-amp-gas/ba-p/791986) 
 article published in MS Tech Community.
 
+This demo was largely constructed using the AzureHPC Github Tutorial here: https://github.com/Azure/azurehpc/tree/master/tutorials/oil_and_gas_opm
+
 # Demo Architecture
 ![Alt text](screenshots/HPCOptimal20_refarch.png?raw=true "Demo Reference Architecture")
 
