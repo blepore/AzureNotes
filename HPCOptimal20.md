@@ -1,4 +1,4 @@
-# Introduction
+# HPC Optimal Demo Introduction
 
 Using Azure for the basic building blocks, let’s demonstrate a Reservoir Simulation pipeline.
 
