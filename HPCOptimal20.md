@@ -51,7 +51,7 @@ Run 'qstat –f' to check status
 # Visualize output
 RDP to NV Windows VM:
 ```
-IP address: 
+Address: viznodehpcoptimal.southcentralus.cloudapp.azure.com
 Username: hpcadmin
 Password: Tiered20202020
 ```
