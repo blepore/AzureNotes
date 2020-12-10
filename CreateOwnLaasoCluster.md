@@ -108,38 +108,38 @@ Install python
 	```sudo apt-get install gcc python3-dev```
 
 Install az cli
-	curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+	```curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash```
 
 Login
-	az login
+	```az login```
 
 Verify correct subscription
-	az account show
+	```az account show```
 
 
 Define PYTHONPATH (point to root of repo)
-	export PYTHONPATH="/home/brlepore/Avere-laaso-dev/"
+	```export PYTHONPATH="/home/brlepore/Avere-laaso-dev/"```
 
 Setup venv
-	VENV=~/venv_laaso # update this with wherever you want your virtualenv to live
+	```VENV=~/venv_laaso # update this with wherever you want your virtualenv to live
 	LAASO_REPO=~/Avere-laaso-dev  # update this with the path to your Avere-laaso-dev sandbox
 	rm -rf $VENV
 	python3.7 $LAASO_REPO/build/venv_create.py $VENV $LAASO_REPO/laaso/requirements.txt
-	source $VENV/bin/activate
+	source $VENV/bin/activate```
 
 
 Test base functionality of LaaSO scripts
-	$LAASO_REPO/laaso/resource_group_list.py --subscription_id 1aa4d67b-c6b9-42ac-9e40-7262e38d0342
+	```$LAASO_REPO/laaso/resource_group_list.py --subscription_id 1aa4d67b-c6b9-42ac-9e40-7262e38d0342```
 
 
-Create managed identity in infra rg to allow VM to read KV 
+## Create managed identity in infra rg to allow VM to read KV 
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/qs-configure-cli-windows-vm#assign-a-user-assigned-managed-identity-to-an-existing-azure-vm
-	az identity create -g test-infrastructure-rg -n mylaaso-id
+	```az identity create -g test-infrastructure-rg -n mylaaso-id
 	az vm identity assign -g myvm-rg -n myvm-debian --identities "/subscriptions/1aa4d67b-c6b9-42ac-9e40-7262e38d0342/resourcegroups/test-infrastructure-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mylaaso-id"
-        az vm identity show --resource-group myvm-rg --name myvm-debian
+        az vm identity show --resource-group myvm-rg --name myvm-debian```
 
 
-Create KV
+## Create KV
 	Put in ‘infra’ rg
         Access policy - defaults
 	Check all 3: 
@@ -150,7 +150,7 @@ Create KV
 	Networking - All networks
 
 
-Add secret to KV
+## Add secret to KV
 
         SSH pub key location: 
 	~/.ssh/id_rsa.pub
@@ -163,23 +163,23 @@ Add secret to KV
 
 
 
-Assign Managed Identity to KV
+## Assign Managed Identity to KV
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
 	Access Policies -> Add access policy -> ‘Secret Management’ template -> Select Principal = ‘mylaaso-id’ -> Add -> Save
 
 
-Create storage account for lustre logs
+## Create storage account for lustre logs
 	Location should be in same region as cluster (for perf)
 	Other defaults are ok
 	mylaaso-sa-rg / mylaasosa	
 
 
-Create container for controller create logs
-     laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create
+## Create container for controller create logs
+     ```laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create```
 
 
-Create NSG for controller VM:
-	laaso/nsg_create.py test-infrastructure-rg standupvm-nsg standup --location eastus
+## Create NSG for controller VM:
+	```laaso/nsg_create.py test-infrastructure-rg standupvm-nsg standup --location eastus```
 
-Create controller/shepherd VM:
-	laaso/vm_create.py laaso-vm-rg laaso-vm devel --owner brlepore --location eastus
+## Create controller/shepherd VM:
+	```laaso/vm_create.py laaso-vm-rg laaso-vm devel --owner brlepore --location eastus```
