@@ -1,16 +1,16 @@
 # Creating a LaaSO cluster in your own subscription
-For internal 
+For internal customers/partners only. This will not work for external customers.
 
-# Assumptions:
+## Assumptions:
 	Subscription exists and users have access to resources within the subscription via VPN/Public-IP-enabled jumpbox
 	All infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
 
-# Prerequisites:
+## Prerequisites:
 	Add user as a Reader to our image gallery
 
 
-# Procedure
-## Create geneva certificate
+## Procedure
+### Create geneva certificate
 	From CloudShell ->
 
 	$Env = "dev0"
@@ -51,10 +51,10 @@ For internal
 
 
 
-## Create jumpbox
-## (Potentially Optional) Create VM - DSv4 (Debian Buster)
+### Create jumpbox
+### (Potentially Optional) Create VM - DSv4 (Debian Buster)
 
-## Setup SSH forwarding:
+### Setup SSH forwarding:
     To jumpbox -> ssh -A -i .ssh/laaso_id_rsa brlepore@52.249.219.237
     
     Ssh config file on jumpbox and VM:
@@ -65,7 +65,7 @@ Host *
  ForwardAgent yes
 
      
-## Prepare environment
+### Prepare environment
 From VM:
 
 Install git
@@ -109,14 +109,14 @@ Test base functionality of LaaSO scripts
 	```$LAASO_REPO/laaso/resource_group_list.py --subscription_id 1aa4d67b-c6b9-42ac-9e40-7262e38d0342```
 
 
-## Create managed identity in infra rg to allow VM to read KV 
+### Create managed identity in infra rg to allow VM to read KV 
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/qs-configure-cli-windows-vm#assign-a-user-assigned-managed-identity-to-an-existing-azure-vm
 	```az identity create -g test-infrastructure-rg -n mylaaso-id
 	az vm identity assign -g myvm-rg -n myvm-debian --identities "/subscriptions/1aa4d67b-c6b9-42ac-9e40-7262e38d0342/resourcegroups/test-infrastructure-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mylaaso-id"
         az vm identity show --resource-group myvm-rg --name myvm-debian```
 
 
-## Create KV
+### Create KV
 	Put in ‘infra’ rg
         Access policy - defaults
 	Check all 3: 
@@ -127,7 +127,7 @@ Test base functionality of LaaSO scripts
 	Networking - All networks
 
 
-## Add secret to KV
+### Add secret to KV
 
         SSH pub key location: 
 	~/.ssh/id_rsa.pub
@@ -140,23 +140,23 @@ Test base functionality of LaaSO scripts
 
 
 
-## Assign Managed Identity to KV
+### Assign Managed Identity to KV
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
 	Access Policies -> Add access policy -> ‘Secret Management’ template -> Select Principal = ‘mylaaso-id’ -> Add -> Save
 
 
-## Create storage account for lustre logs
+### Create storage account for lustre logs
 	Location should be in same region as cluster (for perf)
 	Other defaults are ok
 	mylaaso-sa-rg / mylaasosa	
 
 
-## Create container for controller create logs
+### Create container for controller create logs
      ```laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create```
 
 
-## Create NSG for controller VM:
+### Create NSG for controller VM:
 	```laaso/nsg_create.py test-infrastructure-rg standupvm-nsg standup --location eastus```
 
-## Create controller/shepherd VM:
+### Create controller/shepherd VM:
 	```laaso/vm_create.py laaso-vm-rg laaso-vm devel --owner brlepore --location eastus```
