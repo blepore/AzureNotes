@@ -74,10 +74,10 @@ VaultName                 :
 
 
 
-Create jumpbox
-Create VM - DSv4 (Debian Buster)
+## Create jumpbox
+## (Potentially Optional) Create VM - DSv4 (Debian Buster)
 
-SSH forwarding:
+## Setup SSH forwarding:
     To jumpbox -> ssh -A -i .ssh/laaso_id_rsa brlepore@52.249.219.237
     
     Ssh config file on jumpbox and VM:
@@ -88,24 +88,24 @@ Host *
  ForwardAgent yes
 
      
-
+## Prepare environment
 From VM:
 
 Install git
-	sudo apt-get install git
+	```sudo apt-get install git```
 
 
 Repo: https://dev.azure.com/msazure/One/_git/Avere-laaso-dev
 
 Repo git clone docs - https://docs.microsoft.com/en-us/azure/devops/repos/git/use-ssh-keys-to-authenticate?view=azure-devops
 
-	git clone git@ssh.dev.azure.com:v3/msazure/One/Avere-laaso-dev
+	```git clone git@ssh.dev.azure.com:v3/msazure/One/Avere-laaso-dev```
 
 Install python venv
-	sudo apt-get install python3-venv
+	```sudo apt-get install python3-venv```
 
 Install python
-	sudo apt-get install gcc python3-dev
+	```sudo apt-get install gcc python3-dev```
 
 Install az cli
 	curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
