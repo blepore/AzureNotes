@@ -1,7 +1,7 @@
-Assumptions:
+#Assumptions:
 	all infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
 
-Prereq:
+#Prereq:
 	Add user as a Reader to our image gallery
 
 
