@@ -99,7 +99,7 @@ Repo: https://dev.azure.com/msazure/One/_git/Avere-laaso-dev
 
 Repo git clone docs - https://docs.microsoft.com/en-us/azure/devops/repos/git/use-ssh-keys-to-authenticate?view=azure-devops
 
-	```git clone git@ssh.dev.azure.com:v3/msazure/One/Avere-laaso-dev```
+	git clone git@ssh.dev.azure.com:v3/msazure/One/Avere-laaso-dev
 
 Install python venv
 	```sudo apt-get install python3-venv```
