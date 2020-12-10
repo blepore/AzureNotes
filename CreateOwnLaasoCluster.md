@@ -1,3 +1,6 @@
+# Creating a LaaSO cluster in your own subscription
+For internal 
+
 # Assumptions:
 	Subscription exists and users have access to resources within the subscription via VPN/Public-IP-enabled jumpbox
 	All infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
@@ -33,32 +36,6 @@
     	Add-AzureKeyVaultCertificate -VaultName $BaseVaultName -Name $CertificateName -CertificatePolicy $policy	
 
 
-
-
-
-
-
-
-```
-Id                        : https://mylaaso-kv.vault.azure.net/certificates/brlepore-geneva-dev0-eastus/pending
-Status                    : inProgress
-StatusDetails             : Pending certificate created. Certificate request is in progress. This may take some time based on the issuer provider. Please check again later.
-RequestId                 : 1205b0680d2a4782be95129197c159f8
-Target                    :
-Issuer                    : OneCert
-CancellationRequested     : False
-CertificateSigningRequest : MIIFJjCCAw4CAQAwSDFGMEQGA1UEAxM9YnJsZXBvcmUtbGFhc28tZGV2MC1lYXN0dXMuZ2VuZXZhLmtleXZhdWx0LmhwY2NhY2hlLmF6dXJlLmNvbTCCAiIwDQYJKoZIhvcNAQEBBQADggIPADCCAgoCggIBAO44D7tA9r2tcX0lFYPq71vyq6/J823JJJZ47CIiar5f+XRjAttEfxPNIXg5OR4l/TtYoRybjJpZNdJOBK4yjxXD1QDCnZX27
-                            X0lqe25QX1dhJTJzytMkJ6cUBxizyOy7bcmmmz5QM4FCR3W9VkKLxdjLenAXXnwJYJK7HlNkjmzgy6FNUC4Jy2iWBXQhoMMNQb1zX2omU8aPKvczZv4C5bmChSal6XEDW7K9r1b6Xmi3wzWUhlUgljPlDSSd2mYHG43QHGAx1MLTdrD9puYZM1EjcMFzWUomdLCj3l77Fsdzdlfo9sxaNZpj9knBg5lpkPG8mPFJ5qU84ohueldhcruAAv0eD
-                            YOKLwUEha0DsGUC+1solQqMRpzQAm6TSVswL/Z9U23xUT/j3m1v+NkGuQFS8mvLwEPgs9QLi/eNusWH+04ipnLzhb62YcSC+A6ovDaBCd2rBjBdxps0d8OiCYQhT94EcZLUvgFy4RmWaBkUgaVDH3MWrKxVxKCwX3m4utUhNo9/Fqg8eOL/hMMKD/BXOOXqZalCUMzdVxaJ6rYD0LucmPcYA1PjLMBaWRCMjlYdvuetNq8aTRQAxJARU72G4p
-                            gqoBZ8ZGLPA8Mnqb7/1bQiSUUjAaGYejqtvV7yBoVzyRv/SSa/cDm4bo1SSt5t7oZkV5KM6eJhmQU2MElAgMBAAGggZgwgZUGCSqGSIb3DQEJDjGBhzCBhDAOBgNVHQ8BAf8EBAMCBaAwHQYDVR0lBBYwFAYIKwYBBQUHAwEGCCsGAQUFBwMCMEgGA1UdEQRBMD+CPWJybGVwb3JlLWxhYXNvLWRldjAtZWFzdHVzLmdlbmV2YS5rZXl2YXVs
-                            dC5ocGNjYWNoZS5henVyZS5jb20wCQYDVR0TBAIwADANBgkqhkiG9w0BAQsFAAOCAgEAJY9PcQJ9YnqUj+rpcgRTBjRStozc/lP8wJoO0PaJo4FdkUaucNkWOco7KBY6LFkM1BfdmvJbjIER/fzK5RrHIiWCHeJwYEQupophQ26/0VXfD+iW4kCzs3ShNrizeaD+aZaTLDr+/Rw9gOmb1QfC3F8RN0zcNsXI830OKWKaT3peplvXwX94BcqgX
-                            xMaJXSRH3OP7Khm3IO0ZHllhc/vHYoNSzb3MDT3U2ZBXUlDcgcac4KkKSwAopsKvib4/I+hp5c81nCy5rw6fd+gqlWxzbQCqQsKGPwCwDsG2XkQ6MbjI5ArzBJ8nG4TdsJLldmuWNpisnDNhpQwYSI+UXCy0uyFEtEi4k8LJkyCEAliKU9jEti9ZZCilLQrR44Xp4qMt5GvT/mWm+xSamr7GjmskeQj99Dfi7gIU2IPkUIYsZpsc2SvU5nzJJ
-                            PH16j4HjF0co7Xi9w8lPl7hEgxzOJD2AJVjVNiCUnsVHXoAssU7DtGH75Tqn50TnvEhhqcvXQie4TN6fuO+lR+QAEHFQ4Kj0bL1HcI7aCUqlJf4zcHamWSznIn0l3JaVzvN5SFE7Y/tBL0ABJw5HSRa91bCczfELdFUVDTk2y9UVRtKJBybHK6t+DGahUk+8LKPsI8pJCrEpAnUXkEiOeAFNM8TitnLzl+KzcI+w6cqOcPHLoqMuk=
-ErrorCode                 :
-ErrorMessage              :
-Name                      :
-VaultName                 :
-```
 
 
 
