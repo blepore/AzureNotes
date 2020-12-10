@@ -1,12 +1,13 @@
 # Assumptions:
-	all infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
+	Subscription exists and users have access to resources within the subscription via VPN/Public-IP-enabled jumpbox
+	All infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
 
-# Prereq:
+# Prerequisites:
 	Add user as a Reader to our image gallery
 
 
-
-Create geneva certificate
+# Procedure
+## Create geneva certificate
 	From CloudShell ->
 
 	$Env = "dev0"
@@ -38,7 +39,7 @@ Create geneva certificate
 
 
 
-
+```
 Id                        : https://mylaaso-kv.vault.azure.net/certificates/brlepore-geneva-dev0-eastus/pending
 Status                    : inProgress
 StatusDetails             : Pending certificate created. Certificate request is in progress. This may take some time based on the issuer provider. Please check again later.
@@ -57,7 +58,7 @@ ErrorCode                 :
 ErrorMessage              :
 Name                      :
 VaultName                 :
-
+```
 
 
 
