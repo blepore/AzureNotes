@@ -29,14 +29,12 @@ Ssh config file on jumpbox and VM:
  	   AddKeysToAgent yes
  	   ForwardAgent yes
 
-     
 ### Prepare environment
 From VM:
 
 Install git
 
 	sudo apt-get install git
-
 
 Repo: https://dev.azure.com/msazure/One/_git/Avere-laaso-dev
 
@@ -76,10 +74,15 @@ Setup venv
 	python3.7 $LAASO_REPO/build/venv_create.py $VENV $LAASO_REPO/laaso/requirements.txt
 	source $VENV/bin/activate
 
-Test base functionality of LaaSO scripts
+LaaSO tools and scripts have been custom-built to create resources in your environment. These tools are highly recommended (if not required) for use in creating LaaSO-ready (aka "LaaSO-ized") resources in your subscription. 
+
+Test base functionality of the LaaSO scripts now that the environment is setup.
 
 	$LAASO_REPO/laaso/resource_group_list.py --subscription_id 1aa4d67b-c6b9-42ac-9e40-7262e38d0342
+	
+### Update Configuration File
 
+	$LAASO_REPO/src/config/testing_subscriptions.yaml
 
 ### Create managed identity in infra rg to allow VM to read KV 
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/qs-configure-cli-windows-vm#assign-a-user-assigned-managed-identity-to-an-existing-azure-vm
@@ -87,8 +90,17 @@ Test base functionality of LaaSO scripts
 	az vm identity assign -g myvm-rg -n myvm-debian --identities "/subscriptions/1aa4d67b-c6b9-42ac-9e40-7262e38d0342/resourcegroups/test-infrastructure-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mylaaso-id"
         az vm identity show --resource-group myvm-rg --name myvm-debian
 
-
 ### Create KV
+A key vault is required to store a few items:
+ - SSH public key (used for accessing the cluster nodes if necessary)
+ - Geneva certificate (for uploading logs/stats to Geneva for troubleshooting)
+
+For more information about creating Key Vaults in Azure, see this: https://docs.microsoft.com/en-us/azure/key-vault/general/quick-create-portal
+
+Run the following script to create a LaaSO-ized Key Vault:
+	$LAASO_REPO/laaso/keyvault_create.py
+
+When creating the Key Vault, most defaults are acceptable
 Put in ‘infra’ rg
 Access policy - defaults
 Check all 3: 
@@ -98,45 +110,43 @@ Check all 3:
 	Azure Disk Encryption for volume encryption
 	Networking - All networks
 
-
 ### Add secret to KV
+Stated above, an SSH public key is required in order to provide access to the cluster nodes for troubleshooting/admin purposes. For more information about ssh keys, see here: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed
+        
+Once you've generated your SSH key pair, you'll need to place the public key into the key vault. Copy the public key (typically resides in the home directory and named something similar to ~/.ssh/id_rsa.pub)
 
-        SSH pub key location: 
-	~/.ssh/id_rsa.pub
+Place the key as a 'Secret' in the key vault. To create a 'Secret', reference this: https://docs.microsoft.com/en-us/azure/key-vault/secrets/quick-create-portal#add-a-secret-to-key-vault
 
-	create secret ->
-	Manual
-	Name - pubkey-<owner>
-	Value - ssh public key
-	enabled - yes
-
-
+	Choose the following values: 
+		Upload Options - Manual
+		Name - pubkey-<owner>
+	   	    Example: pubkey-brlepore
+		Value - <ssh public key>
+		Enabled - yes
 
 ### Assign Managed Identity to KV
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
 	Access Policies -> Add access policy -> ‘Secret Management’ template -> Select Principal = ‘mylaaso-id’ -> Add -> Save
 
 ### Copy Geneva certificate from LaaSO sub to KV
-	laaso/keyvault_certificate_clone.py test-infrastructure-rg mylaaso-kv brlepore-mylaaso-geneva-dev0-eastus /subscriptions/751411ed-8325-4f6a-902a-b5ce4eb3dd14/resourceGroups/partner-kv-rg/providers/Microsoft.KeyVault/vaults/partner-eastus-kv
-
+	$LAASO_REPO/laaso/keyvault_certificate_clone.py test-infrastructure-rg mylaaso-kv brlepore-mylaaso-geneva-dev0-eastus /subscriptions/751411ed-8325-4f6a-902a-b5ce4eb3dd14/resourceGroups/partner-kv-rg/providers/Microsoft.KeyVault/vaults/partner-eastus-kv
 
 ### Create storage account for lustre logs
 	Location should be in same region as cluster (for perf)
 	Other defaults are ok
 	mylaaso-sa-rg / mylaasosa	
 
-
 ### Create container for controller create logs
-	laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create
+	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create
 
 ### Create container for sub setup (may not be necessary)
-	laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/subscription-setup
+	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/subscription-setup
 
 ### Create NSG for controller VM:
-	laaso/nsg_create.py test-infrastructure-rg standupvm-nsg standup --location eastus
+	$LAASO_REPO/laaso/nsg_create.py test-infrastructure-rg standupvm-nsg standup --location eastus
 
 ### Create controller/shepherd VM:
-	laaso/vm_create.py laaso-vm-rg laaso-vm devel --owner brlepore --location eastus
+	$LAASO_REPO/laaso/vm_create.py laaso-vm-rg laaso-vm devel --owner brlepore --location eastus
 
 
 ## LaaSO Team Prerequisite Checklist/Procedures
