@@ -163,6 +163,8 @@ Test base functionality of LaaSO scripts
 ### Create container for controller create logs
      ```laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create```
 
+### Create container for sub setup (may not be necessary)
+	laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/subscription-setup
 
 ### Create NSG for controller VM:
 	```laaso/nsg_create.py test-infrastructure-rg standupvm-nsg standup --location eastus```
