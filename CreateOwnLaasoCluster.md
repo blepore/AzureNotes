@@ -20,7 +20,7 @@ For internal customers/partners only. This will not work for external customers.
 ### Setup SSH forwarding:
 To jumpbox ->
 
-	ssh -A -i .ssh/laaso_id_rsa brlepore@52.249.219.237
+	ssh -A -i <path/to/private ssh key> <user>@<publicip>
     
 Ssh config file on jumpbox and VM:
 
@@ -102,14 +102,16 @@ Run the following script to create a LaaSO-ized Key Vault:
 	$LAASO_REPO/laaso/keyvault_create.py
 
 When creating the Key Vault, most defaults are acceptable
-Put in ‘infra’ rg
-Access policy - defaults
-Check all 3: 
-	Enable Access to:
-	Azure Virtual Machines for deployment
-	Azure Resource Manager for template deployment
-	Azure Disk Encryption for volume encryption
-	Networking - All networks
+
+	Choose the following values:
+		Resource Group - choose your ‘infra’ resource group 
+		Access policy - defaults
+		Check all 3: 
+			Enable Access to:
+				Azure Virtual Machines for deployment
+				Azure Resource Manager for template deployment
+				Azure Disk Encryption for volume encryption
+				Networking - All networks
 
 ### Assign Managed Identity to KV
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
@@ -144,14 +146,16 @@ For more information about creating Storage Accounts in Azure see this: https://
 	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create
 
 ### Create container for sub setup (may not be necessary)
+	
 	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/subscription-setup
 
 ### Create NSG for controller VM:
+	
 	$LAASO_REPO/laaso/nsg_create.py test-infrastructure-rg standupvm-nsg standup --location eastus
 
 ### Create controller/shepherd VM:
+	
 	$LAASO_REPO/laaso/vm_create.py laaso-vm-rg laaso-vm devel --owner brlepore --location eastus
-
 
 ## LaaSO Team Prerequisite Checklist/Procedures
  - Add user as a Reader to our image gallery
