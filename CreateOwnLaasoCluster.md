@@ -2,13 +2,14 @@
 For internal customers/partners only. This will not work for external customers.
 
 ## Assumptions
-	Subscription exists and users have access to resources within the subscription via VPN/Public-IP-enabled jumpbox
-	All infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
+Subscription exists and users have access to resources within the subscription via VPN/Public-IP-enabled jumpbox
+All infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
 
 ## Prerequisites
-	Add user as a Reader to our image gallery
+### Add user as a Reader to our image gallery
 
-## Procedure
+### Verify that Images are being replicated to appropriate region and add region to replication list if not
+
 ### Create geneva certificate
 From CloudShell
 
@@ -38,7 +39,7 @@ Check portal -> Key Vault -> Certificates to see status
 
 
 
-### Create Upload Certificate to Geneva 
+### Upload Certificate to Geneva 
 Preview.jarvis-int.dc.ad.msft.net
 configurations -> 1.3v0 namespace 
 
@@ -47,28 +48,31 @@ Jarvis -> manage -> logs -> User roles -> certificates view/add -> key vault man
 Logs account - azsclogs 
 Logs endpoint - test 
 
-
+## Procedure
 ### Create jumpbox
+
 ### (Potentially Optional) Create VM - DSv4 (Debian Buster)
 <Create VM info/link here>
 
 ### Setup SSH forwarding:
 To jumpbox ->
-```ssh -A -i .ssh/laaso_id_rsa brlepore@52.249.219.237```
+
+	ssh -A -i .ssh/laaso_id_rsa brlepore@52.249.219.237
     
 Ssh config file on jumpbox and VM:
-```
-cat .ssh/config
-Host *
- AddKeysToAgent yes
- ForwardAgent yes
-```
+
+	>$ cat .ssh/config
+	Host *
+ 	   AddKeysToAgent yes
+ 	   ForwardAgent yes
+
      
 ### Prepare environment
 From VM:
 
 Install git
-```sudo apt-get install git```
+
+	sudo apt-get install git
 
 
 Repo: https://dev.azure.com/msazure/One/_git/Avere-laaso-dev
@@ -78,33 +82,40 @@ Repo git clone docs - https://docs.microsoft.com/en-us/azure/devops/repos/git/us
 	git clone git@ssh.dev.azure.com:v3/msazure/One/Avere-laaso-dev
 
 Install python venv
-```sudo apt-get install python3-venv```
+
+	sudo apt-get install python3-venv
 
 Install python
-```sudo apt-get install gcc python3-dev```
+
+	sudo apt-get install gcc python3-dev
 
 Install az cli
-```curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash```
+
+	curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
 
 Login
-```az login```
+
+	az login
 
 Verify correct subscription
-```az account show```
+
+	az account show
 
 Define PYTHONPATH (point to root of repo)
-```export PYTHONPATH="/home/brlepore/Avere-laaso-dev/"```
+
+	export PYTHONPATH="/home/brlepore/Avere-laaso-dev/"
 
 Setup venv
-```VENV=~/venv_laaso # update this with wherever you want your virtualenv to live
-LAASO_REPO=~/Avere-laaso-dev  # update this with the path to your Avere-laaso-dev sandbox
-rm -rf $VENV
-python3.7 $LAASO_REPO/build/venv_create.py $VENV $LAASO_REPO/laaso/requirements.txt
-source $VENV/bin/activate
-```
+
+	VENV=~/venv_laaso # update this with wherever you want your virtualenv to live
+	LAASO_REPO=~/Avere-laaso-dev  # update this with the path to your Avere-laaso-dev sandbox
+	rm -rf $VENV
+	python3.7 $LAASO_REPO/build/venv_create.py $VENV $LAASO_REPO/laaso/requirements.txt
+	source $VENV/bin/activate
 
 Test base functionality of LaaSO scripts
-```$LAASO_REPO/laaso/resource_group_list.py --subscription_id 1aa4d67b-c6b9-42ac-9e40-7262e38d0342```
+
+	$LAASO_REPO/laaso/resource_group_list.py --subscription_id 1aa4d67b-c6b9-42ac-9e40-7262e38d0342
 
 
 ### Create managed identity in infra rg to allow VM to read KV 
@@ -115,13 +126,13 @@ Test base functionality of LaaSO scripts
 
 
 ### Create KV
-	Put in ‘infra’ rg
-        Access policy - defaults
-	Check all 3: 
-		Enable Access to:
-			Azure Virtual Machines for deployment
-			Azure Resource Manager for template deployment
-			Azure Disk Encryption for volume encryption
+Put in ‘infra’ rg
+Access policy - defaults
+Check all 3: 
+	Enable Access to:
+	Azure Virtual Machines for deployment
+	Azure Resource Manager for template deployment
+	Azure Disk Encryption for volume encryption
 	Networking - All networks
 
 
