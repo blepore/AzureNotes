@@ -15,8 +15,8 @@ For internal customers/partners only. This will not work for external customers.
 
 	$Env = "dev0"
 	$Location = "eastus"
-	$BaseSubId = "1aa4d67b-c6b9-42ac-9e40-7262e38d0342"
-	$BaseVaultName = "mylaaso-kv"
+	$BaseSubId = "751411ed-8325-4f6a-902a-b5ce4eb3dd14"
+	$BaseVaultName = "partner-eastus-kv"
 	$Tenant = "72f988bf-86f1-41af-91ab-2d7cd011db47"
 	Set-AzureRmContext -Subscription $BaseSubId
 	$CertificateName = "brlepore-geneva-${Env}-${Location}"
@@ -45,8 +45,14 @@ For internal customers/partners only. This will not work for external customers.
 
 
 
+### Create Upload Certificate to Geneva 
+Preview.jarvis-int.dc.ad.msft.net
+configurations -> 1.3v0 namespace 
 
+Jarvis -> manage -> logs -> User roles -> certificates view/add -> key vault managed certificates -> key vault managed certs - > upload certificate. 
 
+Logs account - azsclogs 
+Logs endpoint - test 
 
 
 
