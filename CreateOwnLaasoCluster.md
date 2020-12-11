@@ -6,11 +6,10 @@ For internal customers/partners only. This will not work for external customers.
  - All infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
 
 ## Prerequisites
-### Add user as a Reader to our image gallery
+ - Add user as a Reader to our image gallery
+ - Verify that Images are being replicated to appropriate region and add region to replication list if not
+ - Create geneva certificate
 
-### Verify that Images are being replicated to appropriate region and add region to replication list if not
-
-### Create geneva certificate
 From CloudShell
 
 	$Env = "dev0"
