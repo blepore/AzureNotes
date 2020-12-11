@@ -6,46 +6,10 @@ For internal customers/partners only. This will not work for external customers.
  - All infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
 
 ## Prerequisites
- - Add user as a Reader to our image gallery
- - Verify that Images are being replicated to appropriate region and add region to replication list if not
- - Create geneva certificate
-
-From CloudShell
-
-	$Env = "dev0"
-	$Location = "eastus"
-	$BaseSubId = "751411ed-8325-4f6a-902a-b5ce4eb3dd14"
-	$BaseVaultName = "partner-eastus-kv"
-	$Tenant = "72f988bf-86f1-41af-91ab-2d7cd011db47"
-	Set-AzureRmContext -Subscription $BaseSubId
-	$CertificateName = "brlepore-geneva-${Env}-${Location}"
-	$genevacert = @{
-	dnsNames = "brlepore-laaso-${Env}-${Location}.geneva.keyvault.hpccache.azure.com";
-	distinguishedName = "CN=brlepore-laaso-${Env}-${Location}.geneva.keyvault.hpccache.azure.com";
-	certificateName = $CertificateName
-	}
-	Write-Host "certificateName: $CertificateName"
-	$validity = 24  # in months; for test environments we rotate real fast, every 1 month so we can blow up fast
-	$renewLife = 4  # 1/24 = .041666, round down
-    	# Set Cert Issuer to OneCert as Certificates created must be signed by OneCert.
-    	$policy = New-AzureKeyVaultCertificatePolicy -IssuerName 'OneCert' -SubjectName $genevacert['distinguishedName'] -SecretContentType 'application/x-pkcs12' `
-   	-Ekus "1.3.6.1.5.5.7.3.1", "1.3.6.1.5.5.7.3.2" -ValidityInMonths $validity -KeyType 'RSA'  -KeySize 4096 `
-    	-RenewAtPercentageLifetime $renewLife -DnsNames $genevacert['dnsNames']
-    	Set-AzureKeyVaultCertificateIssuer -VaultName $BaseVaultName -Name 'OneCert' -IssuerProvider 'OneCert'
-    	Add-AzureKeyVaultCertificate -VaultName $BaseVaultName -Name $CertificateName -CertificatePolicy $policy	
-
-Check portal -> Key Vault -> Certificates to see status
-
-
-
-### Upload Certificate to Geneva 
-Preview.jarvis-int.dc.ad.msft.net
-configurations -> 1.3v0 namespace 
-
-Jarvis -> manage -> logs -> User roles -> certificates view/add -> key vault managed certificates -> key vault managed certs - > upload certificate. 
-
-Logs account - azsclogs 
-Logs endpoint - test 
+ - Request User be added as Reader to LaaSO image gallery
+ - Request User be added as Reader to Geneva certificate Key Vault
+ - Request Geneva certificate name from LaaSO team
+ - Verify that Images are being replicated to appropriate region
 
 ## Procedure
 ### Create jumpbox
@@ -177,8 +141,9 @@ Check all 3:
 
 ## LaaSO Team Prerequisite Checklist/Procedures
  - Add user as a Reader to our image gallery
+ - Add user as a Reader to partner key vault
  - Verify that Images are being replicated to appropriate region and add region to replication list if not
- - Create geneva certificate
+ - Create partner-specific geneva certificate
 
 From CloudShell
 
