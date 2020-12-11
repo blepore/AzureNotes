@@ -2,8 +2,8 @@
 For internal customers/partners only. This will not work for external customers.
 
 ## Assumptions
-Subscription exists and users have access to resources within the subscription via VPN/Public-IP-enabled jumpbox
-All infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
+ - Subscription exists and users have access to resources within the subscription via VPN/Public-IP-enabled jumpbox
+ - All infrastructure resources (vnet, keyvaults, managed identities) reside in a ‘infra’ rg (designated in config file) 
 
 ## Prerequisites
 ### Add user as a Reader to our image gallery
