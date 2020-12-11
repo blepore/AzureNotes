@@ -98,6 +98,7 @@ A key vault is required to store a few items:
 For more information about creating Key Vaults in Azure, see this: https://docs.microsoft.com/en-us/azure/key-vault/general/quick-create-portal
 
 Run the following script to create a LaaSO-ized Key Vault:
+
 	$LAASO_REPO/laaso/keyvault_create.py
 
 When creating the Key Vault, most defaults are acceptable
@@ -110,7 +111,11 @@ Check all 3:
 	Azure Disk Encryption for volume encryption
 	Networking - All networks
 
-### Add secret to KV
+### Assign Managed Identity to KV
+	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
+	Access Policies -> Add access policy -> ‘Secret Management’ template -> Select Principal = ‘mylaaso-id’ -> Add -> Save
+
+### Add SSH public key secret to KV
 Stated above, an SSH public key is required in order to provide access to the cluster nodes for troubleshooting/admin purposes. For more information about ssh keys, see here: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed
         
 Once you've generated your SSH key pair, you'll need to place the public key into the key vault. Copy the public key (typically resides in the home directory and named something similar to ~/.ssh/id_rsa.pub)
@@ -124,17 +129,16 @@ Place the key as a 'Secret' in the key vault. To create a 'Secret', reference th
 		Value - <ssh public key>
 		Enabled - yes
 
-### Assign Managed Identity to KV
-	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
-	Access Policies -> Add access policy -> ‘Secret Management’ template -> Select Principal = ‘mylaaso-id’ -> Add -> Save
-
 ### Copy Geneva certificate from LaaSO sub to KV
 	$LAASO_REPO/laaso/keyvault_certificate_clone.py test-infrastructure-rg mylaaso-kv brlepore-mylaaso-geneva-dev0-eastus /subscriptions/751411ed-8325-4f6a-902a-b5ce4eb3dd14/resourceGroups/partner-kv-rg/providers/Microsoft.KeyVault/vaults/partner-eastus-kv
 
 ### Create storage account for lustre logs
-	Location should be in same region as cluster (for perf)
-	Other defaults are ok
-	mylaaso-sa-rg / mylaasosa	
+For debugging purposes, a storage account is needed to store logs locally in the subscription. 
+
+For more information about creating Storage Accounts in Azure see this: https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal
+
+	Choose the following values:
+		Location - same region as cluster (for performance reasons)	
 
 ### Create container for controller create logs
 	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create
