@@ -150,6 +150,9 @@ Test base functionality of LaaSO scripts
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
 	Access Policies -> Add access policy -> ‘Secret Management’ template -> Select Principal = ‘mylaaso-id’ -> Add -> Save
 
+### Copy Geneva certificate from LaaSO sub to KV
+	laaso/keyvault_certificate_clone.py test-infrastructure-rg mylaaso-kv brlepore-mylaaso-geneva-dev0-eastus /subscriptions/751411ed-8325-4f6a-902a-b5ce4eb3dd14/resourceGroups/partner-kv-rg/providers/Microsoft.KeyVault/vaults/partner-eastus-kv
+
 
 ### Create storage account for lustre logs
 	Location should be in same region as cluster (for perf)
