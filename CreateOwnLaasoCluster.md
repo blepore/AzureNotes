@@ -143,7 +143,7 @@ Check all 3:
  - Add user as a Reader to our image gallery
  - Add user as a Reader to partner key vault
  - Verify that Images are being replicated to appropriate region and add region to replication list if not
-  - This happens at the per-version level
+ 	- This happens at the per-version level
  - Create partner-specific geneva certificate
 
 From CloudShell
