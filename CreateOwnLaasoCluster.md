@@ -79,10 +79,6 @@ LaaSO tools and scripts have been custom-built to create resources in your envir
 Test base functionality of the LaaSO scripts now that the environment is setup.
 
 	$LAASO_REPO/laaso/resource_group_list.py --subscription_id 1aa4d67b-c6b9-42ac-9e40-7262e38d0342
-	
-### Update Configuration File
-
-	$LAASO_REPO/src/config/testing_subscriptions.yaml
 
 ### Create managed identity in infra rg to allow VM to read KV 
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/qs-configure-cli-windows-vm#assign-a-user-assigned-managed-identity-to-an-existing-azure-vm
@@ -152,6 +148,10 @@ For more information about creating Storage Accounts in Azure see this: https://
 ### Create NSG for controller VM:
 	
 	$LAASO_REPO/laaso/nsg_create.py test-infrastructure-rg standupvm-nsg standup --location eastus
+
+### Update Configuration File
+
+	$LAASO_REPO/src/config/testing_subscriptions.yaml
 
 ### Create controller/shepherd VM:
 	
