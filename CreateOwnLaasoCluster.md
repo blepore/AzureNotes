@@ -81,10 +81,11 @@ Test base functionality of the LaaSO scripts now that the environment is setup.
 	$LAASO_REPO/laaso/resource_group_list.py --subscription_id 1aa4d67b-c6b9-42ac-9e40-7262e38d0342
 
 ### Create managed identity in infra rg to allow VM to read KV 
-	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/qs-configure-cli-windows-vm#assign-a-user-assigned-managed-identity-to-an-existing-azure-vm
+https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/qs-configure-cli-windows-vm#assign-a-user-assigned-managed-identity-to-an-existing-azure-vm
+
 	az identity create -g test-infrastructure-rg -n mylaaso-id
 	az vm identity assign -g myvm-rg -n myvm-debian --identities "/subscriptions/1aa4d67b-c6b9-42ac-9e40-7262e38d0342/resourcegroups/test-infrastructure-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mylaaso-id"
-        az vm identity show --resource-group myvm-rg --name myvm-debian
+	az vm identity show --resource-group myvm-rg --name myvm-debian
 
 ### Create KV
 A key vault is required to store a few items:
