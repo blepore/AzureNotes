@@ -196,7 +196,7 @@ Verify correct subscription
 	az account show
 
 ### Create cluster config file
-Sample config file:
+Sample config file (2nodeD32_2clients.yaml):
 
 	cluster:
 
@@ -223,7 +223,9 @@ Sample config file:
 	  genevaIdentity: mylaaso-id
 	  genevaCertificate: partner-laaso-dev0-eastus
 	  
+## Deploy cluster
 
+	nohup laaso/deploy_cluster.py ~/yamlfiles/2nodeD32_2clients.yaml --cleanup=0 --log_level=debug --debug=2 &
 
 ## LaaSO Team Prerequisite Checklist/Procedures
  - Add user as a Reader to our image gallery
