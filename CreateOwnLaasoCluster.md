@@ -224,6 +224,7 @@ Sample config file (2nodeD32_2clients.yaml):
 	  genevaCertificate: partner-laaso-dev0-eastus
 	  
 ## Deploy cluster
+Deploy cluster and clients using the following command. 'nohup' is used here for convenience and is not necessary. Output is logged to 'nohup.out' as a result.
 
 	nohup laaso/deploy_cluster.py ~/yamlfiles/2nodeD32_2clients.yaml --cleanup=0 --log_level=debug --debug=2 &
 
