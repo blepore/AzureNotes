@@ -112,6 +112,7 @@ When creating the Key Vault, most defaults are acceptable
 
 ### Assign Managed Identity to KV
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
+	
 	Access Policies -> Add access policy -> ‘Secret Management’ template -> Select Principal = ‘mylaaso-id’ -> Add -> Save
 
 ### Add SSH public key secret to KV
@@ -131,6 +132,7 @@ NOTE: it is important to name the key as described below (with the 'pubkey-' pre
 		Enabled - yes
 
 ### Copy Geneva certificate from LaaSO sub to KV
+	
 	$LAASO_REPO/laaso/keyvault_certificate_clone.py test-infrastructure-rg mylaaso-kv partner-laaso-dev0-eastus /subscriptions/751411ed-8325-4f6a-902a-b5ce4eb3dd14/resourceGroups/partner-kv-rg/providers/Microsoft.KeyVault/vaults/partner-eastus-kv
 
 ### Create storage account for lustre logs
@@ -147,10 +149,19 @@ For more information about creating Storage Accounts in Azure see this: https://
 ### Create container for sub setup (may not be necessary)
 	
 	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/subscription-setup
+	
+### Create container for deploy-cluster
+
+	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/deploy-cluster
 
 ### Create NSG for controller VM:
 	
 	$LAASO_REPO/laaso/nsg_create.py test-infrastructure-rg standupvm-nsg standup --location eastus
+
+### Create Log Analytics workspace for OMS extensions
+Create a Log Analytics workspace for OMS extensions. For more on how to create a workspace, see this: https://docs.microsoft.com/en-us/azure/azure-monitor/learn/quick-create-workspace
+
+For ease of use, it is recommended that you put the workspace in the 'infra' resource group.
 
 ### Update Configuration File
 
@@ -159,6 +170,10 @@ For more information about creating Storage Accounts in Azure see this: https://
 ### Create controller/shepherd VM:
 	
 	$LAASO_REPO/laaso/vm_create.py mylaaso-vm-rg mylaaso-vm devel --owner brlepore --location eastus
+
+### SCP config file to new VM (save sample config off as 'orig' for reference)
+	
+	mv src/config/testing_subscriptions.yaml src/config/testing_subscriptions.yaml.orig; scp 172.24.0.6:/home/brlepore/Avere-laaso-dev/src/config/testing_subscriptions.yaml /home/brlepore/Avere-laaso-dev/src/config/testing_subscriptions.yaml
 
 ### Log into new controller VM and prepare to create cluster
 
@@ -169,6 +184,27 @@ For more information about creating Storage Accounts in Azure see this: https://
 	rm -rf $VENV
 	python3.7 $LAASO_REPO/build/venv_create.py $VENV $LAASO_REPO/laaso/requirements.txt
 	source $VENV/bin/activate
+
+Login
+
+	az login
+
+Verify correct subscription
+
+	az account show
+
+### Create cluster config file
+Sample config file:
+
+	cluster:
+	
+	  clientCount: 0
+  	  clientSubnet: "default"
+  	  serverSubnet: "default"
+  	  virtualNetworkId: "test-vnet"
+  	  virtualNetworkRG: "test-infrastructure-rg"
+ 	  location: "eastus"
+	  
 
 
 ## LaaSO Team Prerequisite Checklist/Procedures
