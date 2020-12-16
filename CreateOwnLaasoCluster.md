@@ -167,7 +167,7 @@ For more information about creating Storage Accounts in Azure see this: https://
  	- This happens at the per-version level
  - Create partner-specific geneva certificate
 
-From CloudShell
+From CloudShell (for ease of use, CertificateName, dnsNames, distinguishedName prefix should all match)
 
 	$Env = "dev0"
 	$Location = "eastus"
@@ -175,7 +175,7 @@ From CloudShell
 	$BaseVaultName = "partner-eastus-kv"
 	$Tenant = "72f988bf-86f1-41af-91ab-2d7cd011db47"
 	Set-AzureRmContext -Subscription $BaseSubId
-	$CertificateName = "brlepore-geneva-${Env}-${Location}"
+	$CertificateName = "brlepore-laaso-${Env}-${Location}"
 	$genevacert = @{
 	dnsNames = "brlepore-laaso-${Env}-${Location}.geneva.keyvault.hpccache.azure.com";
 	distinguishedName = "CN=brlepore-laaso-${Env}-${Location}.geneva.keyvault.hpccache.azure.com";
