@@ -175,10 +175,10 @@ From CloudShell (for ease of use, CertificateName, dnsNames, distinguishedName p
 	$BaseVaultName = "partner-eastus-kv"
 	$Tenant = "72f988bf-86f1-41af-91ab-2d7cd011db47"
 	Set-AzureRmContext -Subscription $BaseSubId
-	$CertificateName = "brlepore-laaso-${Env}-${Location}"
+	$CertificateName = "partner-laaso-${Env}-${Location}"
 	$genevacert = @{
-	dnsNames = "brlepore-laaso-${Env}-${Location}.geneva.keyvault.hpccache.azure.com";
-	distinguishedName = "CN=brlepore-laaso-${Env}-${Location}.geneva.keyvault.hpccache.azure.com";
+	dnsNames = "partner-laaso-${Env}-${Location}.geneva.keyvault.hpccache.azure.com";
+	distinguishedName = "CN=partner-laaso-${Env}-${Location}.geneva.keyvault.hpccache.azure.com";
 	certificateName = $CertificateName
 	}
 	Write-Host "certificateName: $CertificateName"
