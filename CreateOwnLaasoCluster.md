@@ -114,6 +114,8 @@ When creating the Key Vault, most defaults are acceptable
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
 	
 	Access Policies -> Add access policy -> ‘Secret Management’ template -> Select Principal = ‘mylaaso-id’ -> Add -> Save
+	
+	Need GET/LIST on Keys and Certificates as well
 
 ### Add SSH public key secret to KV
 Stated above, an SSH public key is required in order to provide access to the cluster nodes for troubleshooting/admin purposes. For more information about ssh keys, see here: https://docs.microsoft.com/en-us/azure/virtual-machines/linux/create-ssh-keys-detailed
