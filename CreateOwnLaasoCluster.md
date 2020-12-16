@@ -121,7 +121,7 @@ Once you've generated your SSH key pair, you'll need to place the public key int
 
 Place the key as a 'Secret' in the key vault. To create a 'Secret', reference this: https://docs.microsoft.com/en-us/azure/key-vault/secrets/quick-create-portal#add-a-secret-to-key-vault
 
-NOTE: it is important to name the key as described below (with the 'pubkey-' suffix plus username)
+NOTE: it is important to name the key as described below (with the 'pubkey-' prefix plus username)
 
 	Choose the following values: 
 		Upload Options - Manual
