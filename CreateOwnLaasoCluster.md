@@ -199,13 +199,29 @@ Verify correct subscription
 Sample config file:
 
 	cluster:
-	
-	  clientCount: 0
-  	  clientSubnet: "default"
-  	  serverSubnet: "default"
-  	  virtualNetworkId: "test-vnet"
-  	  virtualNetworkRG: "test-infrastructure-rg"
- 	  location: "eastus"
+
+	  clientCount: 2
+	  ossCount: 2
+
+	  clientSubnet: "default"
+	  serverSubnet: "default"
+	  virtualNetworkId: "test-vnet"
+	  virtualNetworkRG: "test-infrastructure-rg"
+	  location: "eastus"
+
+	hydration:
+	  hydrationKeyVault: mylaaso-kv
+	  hydrationKeyVaultRG: test-infrastructure-rg
+	  hydrationKeyVaultIdentity: /subscriptions/1aa4d67b-c6b9-42ac-9e40-7262e38d0342/resourceGroups/test-infrastructure-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mylaaso-id
+	  #hydrationKvSecret: laasoimporttestdata-key
+	  #hydrationStorageAccount: laasoimporttestdata
+	  #hydrationContainer: import
+	  #loggingContainer: amlfilesystem-logging
+
+	user:
+	  genevaKeyVaultRG: test-infrastructure-rg
+	  genevaIdentity: mylaaso-id
+	  genevaCertificate: partner-laaso-dev0-eastus
 	  
 
 
