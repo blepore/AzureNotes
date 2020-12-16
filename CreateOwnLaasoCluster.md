@@ -158,7 +158,18 @@ For more information about creating Storage Accounts in Azure see this: https://
 
 ### Create controller/shepherd VM:
 	
-	$LAASO_REPO/laaso/vm_create.py laaso-vm-rg laaso-vm devel --owner brlepore --location eastus
+	$LAASO_REPO/laaso/vm_create.py mylaaso-vm-rg mylaaso-vm devel --owner brlepore --location eastus
+
+### Log into new controller VM and prepare to create cluster
+
+	git clone git@ssh.dev.azure.com:v3/msazure/One/Avere-laaso-dev
+	export PYTHONPATH="/home/brlepore/Avere-laaso-dev/"
+	VENV=~/venv_laaso # update this with wherever you want your virtualenv to live
+	LAASO_REPO=~/Avere-laaso-dev  # update this with the path to your Avere-laaso-dev sandbox
+	rm -rf $VENV
+	python3.7 $LAASO_REPO/build/venv_create.py $VENV $LAASO_REPO/laaso/requirements.txt
+	source $VENV/bin/activate
+
 
 ## LaaSO Team Prerequisite Checklist/Procedures
  - Add user as a Reader to our image gallery
