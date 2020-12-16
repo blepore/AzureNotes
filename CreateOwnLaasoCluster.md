@@ -131,7 +131,7 @@ NOTE: it is important to name the key as described below (with the 'pubkey-' pre
 		Enabled - yes
 
 ### Copy Geneva certificate from LaaSO sub to KV
-	$LAASO_REPO/laaso/keyvault_certificate_clone.py test-infrastructure-rg mylaaso-kv brlepore-mylaaso-geneva-dev0-eastus /subscriptions/751411ed-8325-4f6a-902a-b5ce4eb3dd14/resourceGroups/partner-kv-rg/providers/Microsoft.KeyVault/vaults/partner-eastus-kv
+	$LAASO_REPO/laaso/keyvault_certificate_clone.py test-infrastructure-rg mylaaso-kv partner-laaso-dev0-eastus /subscriptions/751411ed-8325-4f6a-902a-b5ce4eb3dd14/resourceGroups/partner-kv-rg/providers/Microsoft.KeyVault/vaults/partner-eastus-kv
 
 ### Create storage account for lustre logs
 For debugging purposes, a storage account is needed to store logs locally in the subscription. 
