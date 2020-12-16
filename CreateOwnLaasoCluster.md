@@ -199,7 +199,9 @@ Check portal -> Key Vault -> Certificates to see status
 Preview.jarvis-int.dc.ad.msft.net
 configurations -> 1.3v0 namespace 
 
-Jarvis -> manage -> logs -> User roles -> certificates view/add -> key vault managed certificates -> key vault managed certs - > upload certificate. 
+Jarvis -> manage -> logs -> User roles -> 'AZSClogs_MaCommunication' -> manage certificates view/add -> key vault managed certificates -> upload certificate
+
+
 
 Logs account - azsclogs 
 Logs endpoint - test 
