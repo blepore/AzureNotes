@@ -10,6 +10,8 @@ For internal customers/partners only. This will not work for external customers.
  - Request User be added as Reader to Geneva certificate Key Vault
  - Request Geneva certificate name from LaaSO team
  - Verify that Images are being replicated to appropriate region
+ - Request Quota increase (if necessary)
+ 	- LaaSO clusters use D32s_v3 VMs. Each VM provides ~3.8TB of raw storage capacity and ~768MB/s of throughput (max). You should request enough quota to build a cluster based on those specs (Rough estimates of required number of VMs are below in the "Create cluster config file" section)
 
 ## Procedure
 ### Create jumpbox
@@ -196,6 +198,28 @@ Verify correct subscription
 	az account show
 
 ### Create cluster config file
+The deploy scripts accept yaml-formatted config files as input. The config file specifies:
+
+ - Region (location)
+ - Vnet and subnet to use	
+	- virtualNetworkRG - name of resource group in which the vnet resides
+	- virtualNetworkId - name of vnet in subscription
+	- serverSubnet - name of the subnet in which the server will be deployed
+	- clientSubnet (optional) - if you'd like to deploy clients, this is the subnet in which the clients will deploy
+ - User information - used primarily to access the key vault and Geneva certificates
+ 	- genevaKeyVaultRG
+	- genevaIdentity
+	- genevaCertificate
+ - Hydration information - used to copy metadata/data from Blob into cluster
+ 	- hydrationKeyVault
+ 	- hydrationKeyVaultRG
+ 	- hydrationKeyVaultIdentity 
+ - Cluster capacity and throughput - Noted in the "Prerequisites" section above, LaaSO clusters use D32s_v3 VMs. Each VM provides ~3.8TB of raw storage capacity and ~768MB/s of throughput (max). You should request enough quota to build a cluster based on those specs.
+ 	- Examples:
+		- 2 node cluster - provides ~7.6TB of capacity and 1536 MB/s of max throughput
+		- 53 node cluster - provides ~200TB of capacity and 40GB/s of max throughput
+		- 131 node cluster - provides ~500TB of capacity and 100GB/s of max throughput
+
 Sample config file (2nodeD32_2clients.yaml):
 
 	cluster:
