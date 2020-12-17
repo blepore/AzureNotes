@@ -258,7 +258,11 @@ Deploy cluster and clients using the following command. 'nohup' is used here for
 By defaults, the scripts configure 'azureuser' as the user using the public ssh key in the key vault. 
 
 
-### Hydration
+## Hydration from Blob (Optional)
+A LaaSO cluster has the ability to import/export data from a Blob container into the filesystem.
+
+Client farm <-> LaaSO cluster <- import/export data/metadata -> Blob container/namespace
+
 Assign managed identity to 'Storage Blob Data Owner' role in SA/Blob
 
 ## LaaSO Team Prerequisite Checklist/Procedures (* if you're a Partner, stop here)
