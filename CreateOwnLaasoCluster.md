@@ -252,8 +252,12 @@ Sample config file (2nodeD32_2clients.yaml):
 Deploy cluster and clients using the following command. 'nohup' is used here for convenience and is not necessary. Output is logged to 'nohup.out' as a result.
 
 	nohup laaso/deploy_cluster.py ~/yamlfiles/2nodeD32_2clients.yaml --cleanup=0 --log_level=debug --debug=2 &
+	
+## Log into clients 
 
-## LaaSO Team Prerequisite Checklist/Procedures
+By defaults, the scripts configure 'azureuser' as the user using the public ssh key in the key vault. 
+
+## LaaSO Team Prerequisite Checklist/Procedures (* if you're a Partner, stop here)
  - Add user as a Reader to our image gallery
  - Add user as a Reader to partner key vault
  - Verify that Images are being replicated to appropriate region and add region to replication list if not
