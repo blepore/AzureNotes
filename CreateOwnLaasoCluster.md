@@ -26,7 +26,8 @@ To jumpbox ->
     
 Ssh config file on jumpbox and VM:
 
-	>$ cat .ssh/config
+.ssh/config file:
+
 	Host *
  	   AddKeysToAgent yes
  	   ForwardAgent yes
