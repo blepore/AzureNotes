@@ -257,6 +257,10 @@ Deploy cluster and clients using the following command. 'nohup' is used here for
 
 By defaults, the scripts configure 'azureuser' as the user using the public ssh key in the key vault. 
 
+
+### Hydration
+Assign managed identity to 'Storage Blob Data Owner' role in SA/Blob
+
 ## LaaSO Team Prerequisite Checklist/Procedures (* if you're a Partner, stop here)
  - Add user as a Reader to our image gallery
  - Add user as a Reader to partner key vault
