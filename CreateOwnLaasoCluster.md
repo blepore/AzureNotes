@@ -263,7 +263,13 @@ A LaaSO cluster has the ability to import/export data from a Blob container into
 
 Client farm <-> LaaSO cluster <- import/export data/metadata -> Blob container/namespace
 
-Assign managed identity to 'Storage Blob Data Owner' role in SA/Blob
+### Generate SAS token
+https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az_storage_blob_generate_sas
+
+	az storage blob generate-sas -c <container name> --name <name of url key to generate> --permissions acdrw --expiry 2021-01-30T00:00:00Z --account-key <access key to storage account> --account-name <storage account name>
+	
+	Example:
+	az storage blob generate-sas -c testhsm --name testsasurl --permissions acdrw --expiry 2021-01-30T00:00:00Z --account-key <access key> --account-name brleporestorage
 
 ## LaaSO Team Prerequisite Checklist/Procedures (* if you're a Partner, stop here)
  - Add user as a Reader to our image gallery
