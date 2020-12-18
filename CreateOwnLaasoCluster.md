@@ -168,6 +168,23 @@ Create a Log Analytics workspace for OMS extensions. For more on how to create a
 
 For ease of use, it is recommended that you put the workspace in the 'infra' resource group.
 
+## Prepare for hydration from Blob (Optional)
+A LaaSO cluster has the ability to import/export data from a Blob container into the filesystem.
+
+The cluster will access the Blob data using a SAS token retrieved from a key vault (specified in the yaml cluster config file).
+
+Not sure yet -> the managed identity may need to have 'Storage Blob Data Owner' access to the Blob container
+
+### Generate SAS token
+https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az_storage_blob_generate_sas
+
+	az storage blob generate-sas -c <container name> --name <name of url key to generate> --permissions acdrw --expiry <end date/time> --account-key <access key to storage account> --account-name <storage account name>
+	
+	Example:
+	az storage blob generate-sas -c testhsm --name testsasurl --permissions acdrw --expiry 2021-01-30T00:00:00Z --account-key <access key> --account-name brleporestorage
+	
+Insert the key as a 'Secret' in your key vault.
+
 ### Update Configuration File
 
 	$LAASO_REPO/src/config/testing_subscriptions.yaml
@@ -211,7 +228,7 @@ The deploy scripts accept yaml-formatted config files as input. The config file 
  	- genevaKeyVaultRG
 	- genevaIdentity
 	- genevaCertificate
- - Hydration information - used to copy metadata/data from Blob into cluster
+ - Hydration information (Optional) - used to copy metadata/data from Blob into cluster
  	- hydrationKeyVault
  	- hydrationKeyVaultRG
  	- hydrationKeyVaultIdentity 
@@ -257,19 +274,9 @@ Deploy cluster and clients using the following command. 'nohup' is used here for
 
 By defaults, the scripts configure 'azureuser' as the user using the public ssh key in the key vault. 
 
+Find the IP addresses associated with each type of machine created by searching through the deploy_cluster.py output for 'IP List for'.
 
-## Hydration from Blob (Optional)
-A LaaSO cluster has the ability to import/export data from a Blob container into the filesystem.
-
-Client farm <-> LaaSO cluster <- import/export data/metadata -> Blob container/namespace
-
-### Generate SAS token
-https://docs.microsoft.com/en-us/cli/azure/storage/blob?view=azure-cli-latest#az_storage_blob_generate_sas
-
-	az storage blob generate-sas -c <container name> --name <name of url key to generate> --permissions acdrw --expiry <end date/time> --account-key <access key to storage account> --account-name <storage account name>
-	
-	Example:
-	az storage blob generate-sas -c testhsm --name testsasurl --permissions acdrw --expiry 2021-01-30T00:00:00Z --account-key <access key> --account-name brleporestorage
+	ssh azureuser@<some IP address>
 
 ## LaaSO Team Prerequisite Checklist/Procedures (* if you're a Partner, stop here)
  - Add user as a Reader to our image gallery
@@ -303,7 +310,6 @@ From CloudShell (for ease of use, CertificateName, dnsNames, distinguishedName p
     	Add-AzureKeyVaultCertificate -VaultName $BaseVaultName -Name $CertificateName -CertificatePolicy $policy	
 
 Check portal -> Key Vault -> Certificates to see status
-
 
 
 ### Upload Certificate to Geneva 
