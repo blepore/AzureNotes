@@ -9,8 +9,8 @@ For internal customers/partners only. This will not work for external customers.
 
 ## Prerequisites
  - Request User be added as Reader to LaaSO image gallery
- - Request User be added as Reader to Geneva certificate Key Vault
- - Request Geneva certificate name from LaaSO team
+ -  (depricated) Request User be added as Reader to Geneva certificate Key Vault
+ -  (depricated) Request Geneva certificate name from LaaSO team
  - Verify that Images are being replicated to appropriate region
  - Request Quota increase (if necessary)
  	- LaaSO clusters use D32s_v3 VMs. Each VM provides ~3.8TB of raw storage capacity and ~768MB/s of throughput (max). You should request enough quota to build a cluster based on those specs (Rough estimates of required number of VMs are below in the "Create cluster config file" section)
@@ -138,9 +138,21 @@ NOTE: it is important to name the key as described below (with the 'pubkey-' pre
 		Value - <ssh public key>
 		Enabled - yes
 
-### Copy Geneva certificate from LaaSO sub to KV
+### (depricated) Copy Geneva certificate from LaaSO sub to KV
 	
 	$LAASO_REPO/laaso/keyvault_certificate_clone.py test-infrastructure-rg mylaaso-kv partner-laaso-dev0-eastus /subscriptions/751411ed-8325-4f6a-902a-b5ce4eb3dd14/resourceGroups/partner-kv-rg/providers/Microsoft.KeyVault/vaults/partner-eastus-kv
+
+### Create a Geneva certificate
+
+https://preview.jarvis-int.dc.ad.msft.net/manage/onboard
+
+https://genevamondocs.azurewebsites.net/collect/authentication/keyvault.html
+https://genevamondocs.azurewebsites.net/collect/authentication/keyvaultcreatecert.html
+
+https://microsoft.sharepoint.com/teams/OneCertCustomerGuide/SitePages/Registering-a-domain-in-public-OneCert.aspx
+https://microsoft.sharepoint.com/teams/OneCertCustomerGuide/SitePages/Registering-a-Domain-in-OneCert.aspx
+
+
 
 ### Create storage account for lustre logs
 For debugging purposes, a storage account is needed to store logs locally in the subscription. 
@@ -285,7 +297,7 @@ Find the IP addresses associated with each type of machine created by searching 
  - Add user as a Reader to partner key vault
  - Verify that Images are being replicated to appropriate region and add region to replication list if not
  	- This happens at the per-version level
- - Create partner-specific geneva certificate
+ -  (depricated) Create partner-specific geneva certificate
 
 From CloudShell (for ease of use, CertificateName, dnsNames, distinguishedName prefix should all match)
 
@@ -319,6 +331,8 @@ Check portal -> Key Vault -> Certificates to see status
 https://preview.jarvis-int.dc.ad.msft.net
 
 (prod: https://jarvis-west-int.cloudapp.net)
+
+https://genevamondocs.azurewebsites.net/collect/authentication/keyvaultlogsauthorize.html
 
 
 configurations -> 1.3v0 namespace 
