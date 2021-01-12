@@ -315,7 +315,12 @@ Check portal -> Key Vault -> Certificates to see status
 
 
 ### Upload Certificate to Geneva 
-Preview.jarvis-int.dc.ad.msft.net
+
+https://preview.jarvis-int.dc.ad.msft.net
+
+(prod: https://jarvis-west-int.cloudapp.net)
+
+
 configurations -> 1.3v0 namespace 
 
 Jarvis -> manage -> logs -> User roles -> 'AZSClogs_MaCommunication' -> manage certificates view/add -> key vault managed certificates -> upload certificate
