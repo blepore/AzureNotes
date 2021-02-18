@@ -202,6 +202,8 @@ Insert the key as a 'Secret' in your key vault.
 ### Update Configuration File
 
 	$LAASO_REPO/src/config/testing_subscriptions.yaml
+	
+	<sample config file should go here> ask brian for his sample if you need one now
 
 ### Create controller/shepherd VM:
 	
