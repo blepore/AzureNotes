@@ -92,6 +92,9 @@ https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure
 	az vm identity assign -g myvm-rg -n myvm-debian --identities "/subscriptions/1aa4d67b-c6b9-42ac-9e40-7262e38d0342/resourcegroups/test-infrastructure-rg/providers/Microsoft.ManagedIdentity/userAssignedIdentities/mylaaso-id"
 	az vm identity show --resource-group myvm-rg --name myvm-debian
 
+### Assign managed identity 'Reader' role to subscription (maybe?)
+	az vm something
+
 ### Create KV
 A key vault is required to store a few items:
  - SSH public key (used for accessing the cluster nodes if necessary)
