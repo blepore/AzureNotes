@@ -152,7 +152,7 @@ For more information about creating Storage Accounts in Azure see this: https://
 
 Run the following script to create a LaaSO-ized Storage Account (location should be in same region as cluster (for performance reasons):
 	
-		laaso/storage_account_create.py laaso-infra laasosandbox-kv --location eastus2
+		laaso/storage_account_create.py laaso-infra mylaasosa --location eastus2 --sku Standard_LRS
 
 ### Create container for controller create logs
 	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create
