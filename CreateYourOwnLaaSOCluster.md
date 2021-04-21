@@ -104,19 +104,7 @@ For more information about creating Key Vaults in Azure, see this: https://docs.
 
 Run the following script to create a LaaSO-ized Key Vault:
 
-	$LAASO_REPO/laaso/keyvault_create.py
-
-When creating the Key Vault, most defaults are acceptable
-
-	Choose the following values:
-		Resource Group - choose your ‘infra’ resource group 
-		Access policy - defaults
-		Check all 3: 
-			Enable Access to:
-				Azure Virtual Machines for deployment
-				Azure Resource Manager for template deployment
-				Azure Disk Encryption for volume encryption
-				Networking - All networks
+	$LAASO_REPO/laaso/keyvault_create.py laaso-infra laasosandbox-kv team_common --location eastus2
 
 ### Assign Managed Identity to KV
 	https://docs.microsoft.com/en-us/azure/active-directory/managed-identities-azure-resources/tutorial-linux-vm-access-nonaad#grant-access
@@ -162,8 +150,9 @@ For debugging purposes, a storage account is needed to store logs locally in the
 
 For more information about creating Storage Accounts in Azure see this: https://docs.microsoft.com/en-us/azure/storage/common/storage-account-create?tabs=azure-portal
 
-	Choose the following values:
-		Location - same region as cluster (for performance reasons)	
+Run the following script to create a LaaSO-ized Storage Account (location should be in same region as cluster (for performance reasons):
+	
+		laaso/storage_account_create.py laaso-infra laasosandbox-kv --location eastus2
 
 ### Create container for controller create logs
 	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/vm-create
@@ -175,6 +164,10 @@ For more information about creating Storage Accounts in Azure see this: https://
 ### Create container for deploy-cluster
 
 	$LAASO_REPO/laaso/container_create.py 1aa4d67b-c6b9-42ac-9e40-7262e38d0342:mylaasosa/deploy-cluster
+
+### Create storage account for Azure Queues
+
+        $LAASO_REPO/laaso/storage_account_create.py laaso-infra aqlaasosandboxeastus2 --location eastus2
 
 ### Create NSG for controller VM:
 	
