@@ -76,7 +76,7 @@ Setup venv
 	VENV=~/venv_laaso # update this with wherever you want your virtualenv to live
 	LAASO_REPO=~/Avere-laaso-dev  # update this with the path to your Avere-laaso-dev sandbox
 	rm -rf $VENV
-	python3.7 $LAASO_REPO/build/venv_create.py $VENV $LAASO_REPO/laaso/requirements.txt
+	python3.7 $LAASO_REPO/build/venv_create.py $VENV $LAASO_REPO/build/requirements.txt
 	source $VENV/bin/activate
 
 LaaSO tools and scripts have been custom-built to create resources in your environment. These tools are highly recommended (if not required) for use in creating LaaSO-ready (aka "LaaSO-ized") resources in your subscription. 
